@@ -1,12 +1,15 @@
 window.ShelfUI = window.ShelfUI || {};
 
-window.ShelfUI.renderBookList = function (list, books) {
+window.ShelfUI.renderBookList = function (list, books, emptyText) {
   if (!list) {
     return;
   }
 
   if (!books.length) {
-    list.innerHTML = '<p class="empty">书架还是空的。</p>';
+    list.innerHTML =
+      '<p class="empty">' +
+      window.ShelfUI.escapeHtml(emptyText || "书架还是空的。") +
+      "</p>";
     return;
   }
 

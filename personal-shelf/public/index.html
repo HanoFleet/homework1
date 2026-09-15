@@ -66,6 +66,40 @@
           </div>
         </form>
       </section>
+      <nav id="book-filter" class="book-filter" aria-label="按状态筛选">
+        <button
+          type="button"
+          class="book-filter__btn is-active"
+          data-status="all"
+          aria-pressed="true"
+        >
+          全部
+        </button>
+        <button
+          type="button"
+          class="book-filter__btn"
+          data-status="queued"
+          aria-pressed="false"
+        >
+          想读
+        </button>
+        <button
+          type="button"
+          class="book-filter__btn"
+          data-status="reading"
+          aria-pressed="false"
+        >
+          在读
+        </button>
+        <button
+          type="button"
+          class="book-filter__btn"
+          data-status="finished"
+          aria-pressed="false"
+        >
+          读完
+        </button>
+      </nav>
       <section id="book-list" class="book-list" aria-label="在读书单"></section>
     </main>
     <script src="../src/data/books.js"></script>
@@ -74,6 +108,7 @@
     <script src="../src/scripts/ui/book-card.js"></script>
     <script src="../src/scripts/ui/book-list.js"></script>
     <script src="../src/scripts/ui/book-form.js"></script>
+    <script src="../src/scripts/ui/book-filter.js"></script>
     <script src="../src/scripts/home.js"></script>
   </body>
 </html>
