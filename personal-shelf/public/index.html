@@ -13,12 +13,66 @@
         <h1 class="masthead__title">个人书架</h1>
         <p class="masthead__lead">记下正在读的书，以及读到了哪里。</p>
       </header>
+      <section class="book-form" aria-label="上架新书">
+        <h2 class="book-form__heading">上架一本新书</h2>
+        <form id="book-form">
+          <div class="book-form__grid">
+            <label class="book-form__field">
+              <span class="book-form__label">书名</span>
+              <input
+                class="book-form__input"
+                name="title"
+                type="text"
+                required
+                autocomplete="off"
+              />
+            </label>
+            <label class="book-form__field">
+              <span class="book-form__label">作者</span>
+              <input
+                class="book-form__input"
+                name="author"
+                type="text"
+                required
+                autocomplete="off"
+              />
+            </label>
+            <label class="book-form__field">
+              <span class="book-form__label">进度</span>
+              <input
+                class="book-form__input"
+                name="progress"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                value="0"
+                required
+              />
+            </label>
+            <label class="book-form__field book-form__field--wide">
+              <span class="book-form__label">读后感</span>
+              <input
+                class="book-form__input"
+                name="note"
+                type="text"
+                required
+                autocomplete="off"
+              />
+            </label>
+          </div>
+          <div class="book-form__actions">
+            <button class="book-form__submit" type="submit">上架</button>
+          </div>
+        </form>
+      </section>
       <section id="book-list" class="book-list" aria-label="在读书单"></section>
     </main>
     <script src="../src/data/books.js"></script>
     <script src="../src/scripts/ui/escape-html.js"></script>
     <script src="../src/scripts/ui/book-card.js"></script>
     <script src="../src/scripts/ui/book-list.js"></script>
+    <script src="../src/scripts/ui/book-form.js"></script>
     <script src="../src/scripts/home.js"></script>
   </body>
 </html>
