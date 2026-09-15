@@ -37,12 +37,78 @@
   font-size: 15px;
 }
 
+.book-card__genre {
+  margin: 8px 0 0;
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+.book-card[data-status="queued"] {
+  min-height: 180px;
+}
+
 .book-card__progress {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: grid;
+  gap: 8px;
   margin-top: auto;
-  padding-top: 28px;
+  padding-top: 22px;
+}
+
+.book-card__progress-label {
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.book-card__range {
+  width: 100%;
+  accent-color: var(--fill);
+}
+
+.book-card__stars {
+  display: flex;
+  gap: 2px;
+  margin-top: 12px;
+}
+
+.book-card__star {
+  padding: 0;
+  color: #d8cfc0;
+  background: transparent;
+  border: 0;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.book-card__star.is-on {
+  color: var(--fill);
+}
+
+.book-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.book-card__action {
+  padding: 5px 10px;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.book-card__action:hover {
+  border-color: var(--accent);
+}
+
+.book-card__note--empty {
+  font-style: italic;
 }
 
 .book-card__note {

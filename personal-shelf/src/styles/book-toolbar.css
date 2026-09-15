@@ -1,0 +1,24 @@
+.book-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  gap: 12px;
+  margin: 0 0 16px;
+}
+
+.book-toolbar__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.book-toolbar__label {
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+}
+
+@media (max-width: 640px) {
+  .book-toolbar {
+    grid-template-columns: 1fr;
+  }
+}

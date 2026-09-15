@@ -1,12 +1,16 @@
 window.ShelfStore = window.ShelfStore || {};
 
-window.ShelfStore.STORAGE_KEY = "personal-shelf.books";
+window.ShelfStore.STORAGE_KEY = "personal-shelf.books.v2";
 
 window.ShelfStore.saveBooks = function (books) {
+  var normalized = (books || [])
+    .map(window.ShelfModel.normalize)
+    .filter(Boolean);
+
   try {
     window.localStorage.setItem(
       window.ShelfStore.STORAGE_KEY,
-      JSON.stringify(books || [])
+      JSON.stringify(normalized)
     );
   } catch (error) {
     return false;
@@ -16,7 +20,7 @@ window.ShelfStore.saveBooks = function (books) {
 };
 
 window.ShelfStore.loadBooks = function (fallback) {
-  var seed = (fallback || []).slice();
+  var seed = (fallback || []).map(window.ShelfModel.normalize).filter(Boolean);
 
   try {
     var raw = window.localStorage.getItem(window.ShelfStore.STORAGE_KEY);
@@ -31,7 +35,14 @@ window.ShelfStore.loadBooks = function (fallback) {
       return seed;
     }
 
-    return parsed;
+    var notes = parsed.map(window.ShelfModel.normalize).filter(Boolean);
+    if (!notes.length) {
+      window.ShelfStore.saveBooks(seed);
+      return seed;
+    }
+
+    window.ShelfStore.saveBooks(notes);
+    return notes;
   } catch (error) {
     return seed;
   }

@@ -25,6 +25,10 @@
   gap: 6px;
 }
 
+.book-form__field[hidden] {
+  display: none !important;
+}
+
 .book-form__field--wide {
   grid-column: 1 / -1;
 }
@@ -56,19 +60,41 @@ select.book-form__input {
   outline-offset: 1px;
 }
 
+.book-form__textarea {
+  resize: vertical;
+  min-height: 4.5rem;
+  line-height: 1.6;
+}
+
 .book-form__actions {
+  display: flex;
+  gap: 10px;
   margin-top: 16px;
 }
 
-.book-form__submit {
+.book-form__submit,
+.book-form__cancel {
   padding: 10px 18px;
-  color: var(--card);
-  background: var(--accent);
-  border: 0;
   border-radius: 4px;
   font: inherit;
   font-size: 15px;
   cursor: pointer;
+}
+
+.book-form__submit {
+  color: var(--card);
+  background: var(--accent);
+  border: 0;
+}
+
+.book-form__cancel {
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+}
+
+.book-form__cancel[hidden] {
+  display: none;
 }
 
 @media (max-width: 640px) {

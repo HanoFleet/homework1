@@ -11,44 +11,26 @@
       <header class="masthead">
         <p class="masthead__kicker">PERSONAL SHELF</p>
         <h1 class="masthead__title">个人书架</h1>
-        <p class="masthead__lead">记下正在读的书，以及读到了哪里。</p>
+        <p class="masthead__lead">想读的只占个位子。真正翻开以后，再记进度和读后感。</p>
       </header>
-      <section class="book-form" aria-label="上架新书">
-        <h2 class="book-form__heading">上架一本新书</h2>
+
+      <section id="book-stats" class="book-stats" aria-label="书架概览"></section>
+
+      <section class="book-form" aria-label="上架或改书">
+        <h2 class="book-form__heading" data-form-heading>上架一本新书</h2>
         <form id="book-form">
           <div class="book-form__grid">
             <label class="book-form__field">
               <span class="book-form__label">书名</span>
-              <input
-                class="book-form__input"
-                name="title"
-                type="text"
-                required
-                autocomplete="off"
-              />
+              <input class="book-form__input" name="title" type="text" required autocomplete="off" />
             </label>
             <label class="book-form__field">
               <span class="book-form__label">作者</span>
-              <input
-                class="book-form__input"
-                name="author"
-                type="text"
-                required
-                autocomplete="off"
-              />
+              <input class="book-form__input" name="author" type="text" required autocomplete="off" />
             </label>
             <label class="book-form__field">
-              <span class="book-form__label">进度</span>
-              <input
-                class="book-form__input"
-                name="progress"
-                type="number"
-                min="0"
-                max="100"
-                step="1"
-                value="0"
-                required
-              />
+              <span class="book-form__label">类型</span>
+              <input class="book-form__input" name="genre" type="text" placeholder="小说 / 科幻 / 历史" autocomplete="off" />
             </label>
             <label class="book-form__field">
               <span class="book-form__label">状态</span>
@@ -58,59 +40,72 @@
                 <option value="finished">读完</option>
               </select>
             </label>
-            <label class="book-form__field book-form__field--wide">
-              <span class="book-form__label">读后感</span>
+            <label class="book-form__field" data-field="progress">
+              <span class="book-form__label">进度</span>
               <input
                 class="book-form__input"
-                name="note"
-                type="text"
-                required
-                autocomplete="off"
+                name="progress"
+                type="number"
+                min="0"
+                max="100"
+                step="1"
+                value="0"
               />
+            </label>
+            <label class="book-form__field" data-field="rating" hidden>
+              <span class="book-form__label">评分</span>
+              <select class="book-form__input" name="rating">
+                <option value="1">1 星</option>
+                <option value="2">2 星</option>
+                <option value="3">3 星</option>
+                <option value="4" selected>4 星</option>
+                <option value="5">5 星</option>
+              </select>
+            </label>
+            <label class="book-form__field book-form__field--wide" data-field="note">
+              <span class="book-form__label">读后感</span>
+              <textarea
+                class="book-form__input book-form__textarea"
+                name="note"
+                rows="3"
+                placeholder="读完再写。想读的书不用填。"
+              ></textarea>
             </label>
           </div>
           <div class="book-form__actions">
-            <button class="book-form__submit" type="submit">上架</button>
+            <button class="book-form__submit" type="submit" data-form-submit>上架</button>
+            <button class="book-form__cancel" type="button" data-form-cancel hidden>取消</button>
           </div>
         </form>
       </section>
+
+      <section id="book-toolbar" class="book-toolbar" aria-label="查找和排序">
+        <label class="book-toolbar__field">
+          <span class="book-toolbar__label">查找</span>
+          <input class="book-form__input" name="query" type="search" placeholder="书名、作者或类型" />
+        </label>
+        <label class="book-toolbar__field">
+          <span class="book-toolbar__label">排序</span>
+          <select class="book-form__input" name="sort">
+            <option value="added">最近上架</option>
+            <option value="title">书名</option>
+            <option value="progress">进度</option>
+          </select>
+        </label>
+      </section>
+
       <nav id="book-filter" class="book-filter" aria-label="按状态筛选">
-        <button
-          type="button"
-          class="book-filter__btn is-active"
-          data-status="all"
-          aria-pressed="true"
-        >
-          全部
-        </button>
-        <button
-          type="button"
-          class="book-filter__btn"
-          data-status="queued"
-          aria-pressed="false"
-        >
-          想读
-        </button>
-        <button
-          type="button"
-          class="book-filter__btn"
-          data-status="reading"
-          aria-pressed="false"
-        >
-          在读
-        </button>
-        <button
-          type="button"
-          class="book-filter__btn"
-          data-status="finished"
-          aria-pressed="false"
-        >
-          读完
-        </button>
+        <button type="button" class="book-filter__btn is-active" data-status="all" aria-pressed="true">全部</button>
+        <button type="button" class="book-filter__btn" data-status="queued" aria-pressed="false">想读</button>
+        <button type="button" class="book-filter__btn" data-status="reading" aria-pressed="false">在读</button>
+        <button type="button" class="book-filter__btn" data-status="finished" aria-pressed="false">读完</button>
       </nav>
-      <section id="book-list" class="book-list" aria-label="在读书单"></section>
+
+      <section id="book-list" class="book-list" aria-label="书单"></section>
     </main>
     <script src="../src/data/books.js"></script>
+    <script src="../src/scripts/lib/book-model.js"></script>
+    <script src="../src/scripts/lib/book-query.js"></script>
     <script src="../src/scripts/lib/book-storage.js"></script>
     <script src="../src/scripts/ui/escape-html.js"></script>
     <script src="../src/scripts/ui/book-remove.js"></script>
@@ -118,6 +113,9 @@
     <script src="../src/scripts/ui/book-list.js"></script>
     <script src="../src/scripts/ui/book-form.js"></script>
     <script src="../src/scripts/ui/book-filter.js"></script>
+    <script src="../src/scripts/ui/book-stats.js"></script>
+    <script src="../src/scripts/ui/book-toolbar.js"></script>
+    <script src="../src/scripts/ui/book-actions.js"></script>
     <script src="../src/scripts/home.js"></script>
   </body>
 </html>

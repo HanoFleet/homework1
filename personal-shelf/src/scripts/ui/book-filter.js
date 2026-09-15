@@ -12,6 +12,29 @@ window.ShelfUI.filterBooks = function (books, status) {
   });
 };
 
+window.ShelfUI.updateFilterCounts = function (nav, books) {
+  if (!nav) {
+    return;
+  }
+
+  var counts = window.ShelfQuery.counts(books);
+  var labels = {
+    all: "全部",
+    queued: "想读",
+    reading: "在读",
+    finished: "读完",
+  };
+
+  Array.prototype.forEach.call(nav.querySelectorAll("[data-status]"), function (button) {
+    var key = button.getAttribute("data-status");
+    var count = counts[key];
+    if (count == null) {
+      return;
+    }
+    button.textContent = labels[key] + " " + count;
+  });
+};
+
 window.ShelfUI.bindBookFilter = function (nav, onChange) {
   if (!nav) {
     return;
