@@ -1,0 +1,130 @@
+:root {
+  --paper: #f4efe6;
+  --ink: #2b241c;
+  --muted: #6f6558;
+  --card: #fffaf2;
+  --line: #d8cfc0;
+  --accent: #8a5a32;
+  --fill: #c07a3a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, #fff8ee 0, transparent 42%),
+    var(--paper);
+  font-family: "PingFang SC", "Hiragino Sans GB", "Songti SC", "STSong", "Noto Serif SC", serif;
+}
+
+.page {
+  width: min(920px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 48px 0 72px;
+}
+
+.masthead {
+  margin-bottom: 36px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.masthead__kicker {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+}
+
+.masthead__title {
+  margin: 0 0 10px;
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.masthead__lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.book-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+  padding: 22px 20px 20px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  box-shadow: 0 10px 24px rgba(80, 54, 28, 0.06);
+}
+
+.book-card__status {
+  margin: 0 0 18px;
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+}
+
+.book-card__title {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.book-card__author {
+  margin: 0 0 auto;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.book-card__progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.book-card__bar {
+  flex: 1;
+  height: 6px;
+  overflow: hidden;
+  background: #ebe3d6;
+  border-radius: 999px;
+}
+
+.book-card__fill {
+  display: block;
+  height: 100%;
+  background: var(--fill);
+}
+
+.book-card__percent {
+  min-width: 2.6em;
+  color: var(--ink);
+  font-size: 13px;
+  text-align: right;
+}
+
+.empty {
+  color: var(--muted);
+}
