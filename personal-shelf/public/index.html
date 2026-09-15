@@ -50,6 +50,14 @@
                 required
               />
             </label>
+            <label class="book-form__field">
+              <span class="book-form__label">状态</span>
+              <select class="book-form__input" name="status" required>
+                <option value="queued">想读</option>
+                <option value="reading" selected>在读</option>
+                <option value="finished">读完</option>
+              </select>
+            </label>
             <label class="book-form__field book-form__field--wide">
               <span class="book-form__label">读后感</span>
               <input

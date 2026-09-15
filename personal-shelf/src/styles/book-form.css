@@ -46,6 +46,11 @@
   font-size: 15px;
 }
 
+select.book-form__input {
+  min-height: 42px;
+  cursor: pointer;
+}
+
 .book-form__input:focus {
   outline: 2px solid var(--fill);
   outline-offset: 1px;
