@@ -40,6 +40,9 @@
       percent +
       "%</span>" +
       "</div>" +
+      (book.note
+        ? '<p class="book-card__note">' + escapeHtml(book.note) + "</p>"
+        : "") +
       "</article>"
     );
   }
