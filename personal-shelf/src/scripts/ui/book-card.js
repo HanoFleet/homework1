@@ -13,9 +13,12 @@ window.ShelfUI.renderBook = function (book) {
 
   return (
     '<article class="book-card">' +
+    '<div class="book-card__top">' +
     '<p class="book-card__status">' +
     escapeHtml(status) +
     "</p>" +
+    window.ShelfUI.renderRemoveButton(book) +
+    "</div>" +
     '<h2 class="book-card__title">' +
     escapeHtml(book.title) +
     "</h2>" +

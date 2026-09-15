@@ -1,0 +1,17 @@
+.book-remove {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.book-remove:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}

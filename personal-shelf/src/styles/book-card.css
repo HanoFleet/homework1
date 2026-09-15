@@ -9,8 +9,16 @@
   box-shadow: 0 10px 24px rgba(80, 54, 28, 0.06);
 }
 
+.book-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
 .book-card__status {
-  margin: 0 0 18px;
+  margin: 0;
   color: var(--accent);
   font-size: 12px;
   letter-spacing: 0.16em;
