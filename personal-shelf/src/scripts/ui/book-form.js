@@ -27,7 +27,7 @@ window.ShelfUI.readBookForm = function (form) {
   };
 };
 
-window.ShelfUI.bindBookForm = function (form, list) {
+window.ShelfUI.bindBookForm = function (form, onAdd) {
   if (!form) {
     return;
   }
@@ -40,9 +40,7 @@ window.ShelfUI.bindBookForm = function (form, list) {
       return;
     }
 
-    window.BOOKS = window.BOOKS || [];
-    window.BOOKS.unshift(book);
-    window.ShelfUI.renderBookList(list, window.BOOKS);
+    onAdd(book);
     form.reset();
   });
 };
