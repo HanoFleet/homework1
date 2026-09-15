@@ -58,4 +58,10 @@ body {
 
 .empty {
   color: var(--muted);
+  line-height: 1.7;
+}
+
+.empty__hint {
+  margin: 6px 0 0;
+  font-size: 14px;
 }

@@ -2,7 +2,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 0 0 20px;
+  margin: 0 0 12px;
+}
+
+.book-filter--genre {
+  margin-bottom: 20px;
 }
 
 .book-filter__btn {

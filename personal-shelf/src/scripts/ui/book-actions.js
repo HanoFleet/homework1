@@ -30,18 +30,26 @@ window.ShelfUI.bindBookActions = function (list, handlers) {
       return;
     }
 
-    var label = range
-      .closest(".book-card__progress")
-      .querySelector(".book-card__progress-label");
-    var fill = range.closest(".book-card__progress").querySelector(".book-card__fill");
+    var wrap = range.closest(".book-card__progress");
+    var label = wrap.querySelector(".book-card__progress-label");
+    var fill = wrap.querySelector(".book-card__fill");
     var value = window.ShelfModel.clampProgress(range.value);
 
     if (label) {
-      label.textContent = "进度 " + value + "%";
+      var extra = label.textContent.indexOf("·") === -1 ? "" : label.textContent.slice(label.textContent.indexOf(" ·"));
+      label.textContent = "进度 " + value + "%" + extra;
     }
     if (fill) {
       fill.style.width = value + "%";
     }
+  });
+
+  list.addEventListener("change", function (event) {
+    var range = event.target.closest(".book-card__range");
+    if (!range || !list.contains(range)) {
+      return;
+    }
+    handlers.onProgress(range.getAttribute("data-book-id"), range.value);
   });
 
   list.addEventListener("click", function (event) {
@@ -52,16 +60,9 @@ window.ShelfUI.bindBookActions = function (list, handlers) {
 
     var action = button.getAttribute("data-action");
     var bookId = button.getAttribute("data-book-id");
-    var card = button.closest(".book-card");
-    var range = card ? card.querySelector(".book-card__range") : null;
 
     if (action === "start") {
       handlers.onStart(bookId);
-      return;
-    }
-
-    if (action === "save-progress" && range) {
-      handlers.onProgress(bookId, range.value);
       return;
     }
 

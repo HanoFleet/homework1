@@ -29,11 +29,6 @@ window.ShelfUI.bindBookRemove = function (list, onRemove) {
       return;
     }
 
-    var title = (button.getAttribute("aria-label") || "这本书").replace(/^删除/, "");
-    if (!window.confirm("把" + title + "从书架拿下来？")) {
-      return;
-    }
-
     onRemove(button.getAttribute("data-book-id"));
   });
 };

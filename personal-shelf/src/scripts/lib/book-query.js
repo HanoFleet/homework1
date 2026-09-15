@@ -9,10 +9,37 @@ window.ShelfQuery.search = function (books, query) {
   }
 
   return list.filter(function (book) {
-    var haystack = [book.title, book.author, book.genre]
+    var haystack = [book.title, book.author, book.genre, book.note]
       .join(" ")
       .toLowerCase();
     return haystack.indexOf(needle) !== -1;
+  });
+};
+
+window.ShelfQuery.byGenre = function (books, genre) {
+  var list = books || [];
+  if (!genre || genre === "all") {
+    return list.slice();
+  }
+  return list.filter(function (book) {
+    return book.genre === genre;
+  });
+};
+
+window.ShelfQuery.genres = function (books) {
+  var seen = {};
+  var list = [];
+
+  (books || []).forEach(function (book) {
+    if (!book.genre || seen[book.genre]) {
+      return;
+    }
+    seen[book.genre] = true;
+    list.push(book.genre);
+  });
+
+  return list.sort(function (a, b) {
+    return a.localeCompare(b, "zh");
   });
 };
 
@@ -38,6 +65,15 @@ window.ShelfQuery.sort = function (books, mode) {
     return list;
   }
 
+  if (mode === "updated") {
+    list.sort(function (a, b) {
+      return String(b.updatedAt || b.addedAt || "").localeCompare(
+        String(a.updatedAt || a.addedAt || "")
+      );
+    });
+    return list;
+  }
+
   list.sort(function (a, b) {
     return String(b.addedAt || "").localeCompare(String(a.addedAt || ""));
   });
@@ -52,6 +88,9 @@ window.ShelfQuery.counts = function (books) {
   var readingTotal = readingBooks.reduce(function (sum, book) {
     return sum + (Number(book.progress) || 0);
   }, 0);
+  var latest = readingBooks.slice().sort(function (a, b) {
+    return String(b.updatedAt || "").localeCompare(String(a.updatedAt || ""));
+  })[0];
 
   return {
     all: list.length,
@@ -65,5 +104,6 @@ window.ShelfQuery.counts = function (books) {
     readingAvg: readingBooks.length
       ? Math.round(readingTotal / readingBooks.length)
       : 0,
+    latestTitle: latest ? latest.title : "",
   };
 };

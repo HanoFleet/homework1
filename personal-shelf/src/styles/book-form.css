@@ -8,9 +8,27 @@
 }
 
 .book-form__heading {
-  margin: 0 0 18px;
+  margin: 0 0 8px;
   font-size: 18px;
   font-weight: 600;
+}
+
+.book-form__hint {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.book-form__pages {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 8px;
+  align-items: center;
+}
+
+.book-form__pages-sep {
+  color: var(--muted);
 }
 
 .book-form__grid {

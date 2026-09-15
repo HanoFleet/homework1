@@ -6,6 +6,12 @@ window.ShelfUI.STATUS_LABEL = {
   queued: "想读",
 };
 
+window.ShelfUI.PRIORITY_LABEL = {
+  later: "以后再说",
+  normal: "普通",
+  soon: "很想读",
+};
+
 window.ShelfUI.renderStars = function (rating, bookId) {
   var escapeHtml = window.ShelfUI.escapeHtml;
   var value = Number(rating) || 0;
@@ -22,24 +28,27 @@ window.ShelfUI.renderStars = function (rating, bookId) {
       index +
       '" aria-label="打 ' +
       index +
-      ' 星">' +
-      "★" +
-      "</button>";
+      ' 星">★</button>';
   }
 
   return html + "</div>";
 };
 
-window.ShelfUI.renderBook = function (book) {
+window.ShelfUI.renderBook = function (book, options) {
   var escapeHtml = window.ShelfUI.escapeHtml;
   var status = window.ShelfUI.STATUS_LABEL[book.status] || "在读";
   var queued = book.status === "queued";
   var reading = book.status === "reading";
   var finished = book.status === "finished";
   var percent = queued ? 0 : Math.max(0, Math.min(100, Number(book.progress) || 0));
+  var flash = options && options.flashId && String(options.flashId) === String(book.id);
   var html =
-    '<article class="book-card" data-status="' +
+    '<article class="book-card' +
+    (flash ? " is-flash" : "") +
+    '" data-status="' +
     escapeHtml(book.status) +
+    '" data-book-id="' +
+    escapeHtml(book.id) +
     '">' +
     '<div class="book-card__top">' +
     '<p class="book-card__status">' +
@@ -58,6 +67,13 @@ window.ShelfUI.renderBook = function (book) {
     html += '<p class="book-card__genre">' + escapeHtml(book.genre) + "</p>";
   }
 
+  if (queued) {
+    html +=
+      '<p class="book-card__meta">想读优先级：' +
+      escapeHtml(window.ShelfUI.PRIORITY_LABEL[book.priority] || "普通") +
+      "</p>";
+  }
+
   if (reading) {
     html +=
       '<div class="book-card__progress">' +
@@ -65,7 +81,11 @@ window.ShelfUI.renderBook = function (book) {
       escapeHtml(book.id) +
       '">进度 ' +
       percent +
-      "%</label>" +
+      "%" +
+      (book.pageNow && book.pageTotal
+        ? " · 第 " + book.pageNow + " / " + book.pageTotal + " 页"
+        : "") +
+      "</label>" +
       '<div class="book-card__bar">' +
       '<span class="book-card__fill" style="width: ' +
       percent +
@@ -81,6 +101,15 @@ window.ShelfUI.renderBook = function (book) {
       escapeHtml(book.title) +
       '》的进度" />' +
       "</div>";
+
+    if (book.log && book.log.length) {
+      html +=
+        '<p class="book-card__meta">上次记下 ' +
+        escapeHtml(window.ShelfUI.formatDate(book.log[book.log.length - 1].at)) +
+        " · " +
+        book.log[book.log.length - 1].progress +
+        "%</p>";
+    }
   }
 
   if (finished) {
@@ -92,11 +121,18 @@ window.ShelfUI.renderBook = function (book) {
       '<span class="book-card__percent">100%</span>' +
       "</div>" +
       window.ShelfUI.renderStars(book.rating, book.id);
+
+    if (book.startedAt || book.finishedAt) {
+      html +=
+        '<p class="book-card__meta">' +
+        (book.startedAt ? "从 " + escapeHtml(window.ShelfUI.formatDate(book.startedAt)) : "") +
+        (book.finishedAt ? " 读到 " + escapeHtml(window.ShelfUI.formatDate(book.finishedAt)) : "") +
+        "</p>";
+    }
   }
 
   if (!queued && book.note) {
-    html +=
-      '<p class="book-card__note">' + escapeHtml(book.note) + "</p>";
+    html += '<p class="book-card__note">' + escapeHtml(book.note) + "</p>";
   }
 
   if (finished && !book.note) {
@@ -114,9 +150,6 @@ window.ShelfUI.renderBook = function (book) {
 
   if (reading) {
     html +=
-      '<button type="button" class="book-card__action" data-action="save-progress" data-book-id="' +
-      escapeHtml(book.id) +
-      '">记下进度</button>' +
       '<button type="button" class="book-card__action" data-action="finish" data-book-id="' +
       escapeHtml(book.id) +
       '">读完了</button>';
@@ -125,8 +158,7 @@ window.ShelfUI.renderBook = function (book) {
   html +=
     '<button type="button" class="book-card__action" data-action="edit" data-book-id="' +
     escapeHtml(book.id) +
-    '">编辑</button>' +
-    "</div></article>";
+    '">编辑</button></div></article>';
 
   return html;
 };

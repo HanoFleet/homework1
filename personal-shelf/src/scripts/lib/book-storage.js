@@ -1,6 +1,6 @@
 window.ShelfStore = window.ShelfStore || {};
 
-window.ShelfStore.STORAGE_KEY = "personal-shelf.books.v2";
+window.ShelfStore.STORAGE_KEY = "personal-shelf.books.v3";
 
 window.ShelfStore.saveBooks = function (books) {
   var normalized = (books || [])

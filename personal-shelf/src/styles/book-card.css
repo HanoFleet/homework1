@@ -48,6 +48,18 @@
   min-height: 180px;
 }
 
+.book-card.is-flash {
+  border-color: var(--honey, var(--fill));
+  box-shadow: 0 0 0 3px rgba(192, 122, 58, 0.16);
+}
+
+.book-card__meta {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .book-card__progress {
   display: grid;
   gap: 8px;

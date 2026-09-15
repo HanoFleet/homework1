@@ -1,0 +1,22 @@
+.book-io {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+
+.book-io__btn {
+  padding: 6px 12px;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.book-io__btn--file {
+  display: inline-flex;
+  align-items: center;
+}

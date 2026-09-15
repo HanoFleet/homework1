@@ -35,6 +35,39 @@ window.ShelfUI.updateFilterCounts = function (nav, books) {
   });
 };
 
+window.ShelfUI.renderGenreFilter = function (nav, books, current) {
+  if (!nav) {
+    return;
+  }
+
+  var genres = window.ShelfQuery.genres(books);
+  var html =
+    '<button type="button" class="book-filter__btn' +
+    (current === "all" ? " is-active" : "") +
+    '" data-genre="all" aria-pressed="' +
+    (current === "all" ? "true" : "false") +
+    '">全部类型</button>';
+
+  html += genres
+    .map(function (genre) {
+      var on = current === genre;
+      return (
+        '<button type="button" class="book-filter__btn' +
+        (on ? " is-active" : "") +
+        '" data-genre="' +
+        window.ShelfUI.escapeHtml(genre) +
+        '" aria-pressed="' +
+        (on ? "true" : "false") +
+        '">' +
+        window.ShelfUI.escapeHtml(genre) +
+        "</button>"
+      );
+    })
+    .join("");
+
+  nav.innerHTML = html;
+};
+
 window.ShelfUI.bindBookFilter = function (nav, onChange) {
   if (!nav) {
     return;
@@ -56,5 +89,19 @@ window.ShelfUI.bindBookFilter = function (nav, onChange) {
     });
 
     onChange(status);
+  });
+};
+
+window.ShelfUI.bindGenreFilter = function (nav, onChange) {
+  if (!nav) {
+    return;
+  }
+
+  nav.addEventListener("click", function (event) {
+    var button = event.target.closest("[data-genre]");
+    if (!button || !nav.contains(button)) {
+      return;
+    }
+    onChange(button.getAttribute("data-genre"));
   });
 };

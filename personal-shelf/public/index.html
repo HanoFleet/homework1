@@ -18,6 +18,7 @@
 
       <section class="book-form" aria-label="上架或改书">
         <h2 class="book-form__heading" data-form-heading>上架一本新书</h2>
+        <p class="book-form__hint" data-form-hint>在读可以写页码，卡片上拖进度会自动保存。</p>
         <form id="book-form">
           <div class="book-form__grid">
             <label class="book-form__field">
@@ -40,17 +41,25 @@
                 <option value="finished">读完</option>
               </select>
             </label>
+            <label class="book-form__field" data-field="priority" hidden>
+              <span class="book-form__label">想读优先级</span>
+              <select class="book-form__input" name="priority">
+                <option value="later">以后再说</option>
+                <option value="normal" selected>普通</option>
+                <option value="soon">很想读</option>
+              </select>
+            </label>
             <label class="book-form__field" data-field="progress">
               <span class="book-form__label">进度</span>
-              <input
-                class="book-form__input"
-                name="progress"
-                type="number"
-                min="0"
-                max="100"
-                step="1"
-                value="0"
-              />
+              <input class="book-form__input" name="progress" type="number" min="0" max="100" step="1" value="0" />
+            </label>
+            <label class="book-form__field book-form__field--wide" data-field="pages">
+              <span class="book-form__label">页码</span>
+              <div class="book-form__pages">
+                <input class="book-form__input" name="pageNow" type="number" min="1" step="1" placeholder="读到第几页" />
+                <span class="book-form__pages-sep">/</span>
+                <input class="book-form__input" name="pageTotal" type="number" min="1" step="1" placeholder="全书页数" />
+              </div>
             </label>
             <label class="book-form__field" data-field="rating" hidden>
               <span class="book-form__label">评分</span>
@@ -82,17 +91,26 @@
       <section id="book-toolbar" class="book-toolbar" aria-label="查找和排序">
         <label class="book-toolbar__field">
           <span class="book-toolbar__label">查找</span>
-          <input class="book-form__input" name="query" type="search" placeholder="书名、作者或类型" />
+          <input class="book-form__input" name="query" type="search" placeholder="书名、作者、类型或读后感" />
         </label>
         <label class="book-toolbar__field">
           <span class="book-toolbar__label">排序</span>
           <select class="book-form__input" name="sort">
+            <option value="updated" selected>最近更新</option>
             <option value="added">最近上架</option>
             <option value="title">书名</option>
             <option value="progress">进度</option>
           </select>
         </label>
       </section>
+
+      <div id="book-io" class="book-io">
+        <button type="button" class="book-io__btn" data-io="export">导出书架</button>
+        <label class="book-io__btn book-io__btn--file">
+          导入 JSON
+          <input type="file" accept="application/json,.json" data-io="import" hidden />
+        </label>
+      </div>
 
       <nav id="book-filter" class="book-filter" aria-label="按状态筛选">
         <button type="button" class="book-filter__btn is-active" data-status="all" aria-pressed="true">全部</button>
@@ -101,13 +119,19 @@
         <button type="button" class="book-filter__btn" data-status="finished" aria-pressed="false">读完</button>
       </nav>
 
+      <nav id="genre-filter" class="book-filter book-filter--genre" aria-label="按类型筛选"></nav>
+
       <section id="book-list" class="book-list" aria-label="书单"></section>
     </main>
+    <div id="toast-host" class="toast-host" aria-live="polite"></div>
     <script src="../src/data/books.js"></script>
     <script src="../src/scripts/lib/book-model.js"></script>
     <script src="../src/scripts/lib/book-query.js"></script>
     <script src="../src/scripts/lib/book-storage.js"></script>
     <script src="../src/scripts/ui/escape-html.js"></script>
+    <script src="../src/scripts/ui/book-dates.js"></script>
+    <script src="../src/scripts/ui/book-toast.js"></script>
+    <script src="../src/scripts/ui/book-io.js"></script>
     <script src="../src/scripts/ui/book-remove.js"></script>
     <script src="../src/scripts/ui/book-card.js"></script>
     <script src="../src/scripts/ui/book-list.js"></script>
